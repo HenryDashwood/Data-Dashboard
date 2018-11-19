@@ -6,9 +6,10 @@ from collections import OrderedDict
 import requests
 
 # default list of all countries of interest
-country_default = OrderedDict([('Canada', 'CAN'), ('United States', 'USA'),
-  ('Brazil', 'BRA'), ('France', 'FRA'), ('India', 'IND'), ('Italy', 'ITA'),
-  ('Germany', 'DEU'), ('United Kingdom', 'GBR'), ('China', 'CHN'), ('Japan', 'JPN')])
+country_default = OrderedDict([
+        ('Canada','CAN'),('United States','USA'),('Brazil','BRA'),('France','FRA'),('India','IND'),
+        ('Italy','ITA'),('Germany','DEU'),('United Kingdom','GBR'),('China','CHN'),('Japan','JPN')
+    ])
 
 def return_figures(countries=country_default):
   """Creates four plotly visualizations using the World Bank API
@@ -40,8 +41,7 @@ def return_figures(countries=country_default):
   # pull data from World Bank API and clean the resulting json
   # results stored in data_frames variable
   for indicator in indicators:
-    url = 'http://api.worldbank.org/v2/countries/' + country_filter +\
-    '/indicators/' + indicator + '?date=1990:2015&per_page=1000&format=json'
+    url = 'http://api.worldbank.org/v2/countries/'+country_filter+'/indicators/'+indicator+'?date=1990:2015&per_page=1000&format=json'
     urls.append(url)
 
     try:
@@ -75,17 +75,17 @@ def return_figures(countries=country_default):
       y_val =  df_one[df_one['country'] == country].value.tolist()
       graph_one.append(
           go.Scatter(
-          x = x_val,
-          y = y_val,
-          mode = 'lines',
-          name = country
+            x = x_val,
+            y = y_val,
+            mode = 'lines',
+            name = country
           )
       )
 
   layout_one = dict(title = 'Change in Hectares Arable Land <br> per Person 1990 to 2015',
-                xaxis = dict(title = 'Year',
-                  autotick=False, tick0=1990, dtick=25),
-                yaxis = dict(title = 'Hectares'),
+                    xaxis = dict(title = 'Year',
+                    autotick=False, tick0=1990, dtick=25),
+                    yaxis = dict(title = 'Hectares'),
                 )
 
   # second chart plots ararble land for 2015 as a bar chart
@@ -95,8 +95,8 @@ def return_figures(countries=country_default):
 
   graph_two.append(
       go.Bar(
-      x = df_one.country.tolist(),
-      y = df_one.value.tolist(),
+        x = df_one.country.tolist(),
+        y = df_one.value.tolist(),
       )
   )
 
@@ -161,8 +161,7 @@ def return_figures(countries=country_default):
           y = y_val,
           mode = 'lines+markers',
           text = text,
-          name = country,
-          textposition = 'top'
+          name = country
           )
       )
 
